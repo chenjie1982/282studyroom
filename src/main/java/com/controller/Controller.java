@@ -192,46 +192,16 @@ public class Controller {
 	}
 	
 	@RequestMapping(value="/book", method=RequestMethod.DELETE)
-	public ResponseEntity<TimeTable> cancleRoom(@CookieValue("sid") String sid, @RequestBody StudentResv input) {
-		//check student status
-		Student s = studentrepository.findById(sid);
-		if(s == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		
-		for(int i = 0; i < s.getReservation().size(); i++) {
-			StudentResv studentresv = s.getReservation().get(i);
-			if(studentresv.getDate().equals(input.getDate())
-			&& studentresv.getRoomid().equals(input.getRoomid())
-			&& studentresv.getSlot() == input.getSlot()) {
-				s.getReservation().remove(i);
-				s.setCurNum(s.getCurNum()-1);
-				break;
-			}
-		}
-		//check room status
-		TimeTable tt = repository.findByDate(input.getDate());
-		if (tt == null) {
-			return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-
-		for(ResvInfo r : tt.getTimesheet()) {
-			if(r.getRoomNumber().equals(input.getRoomid())) {
-				for(int i = 0; i <  r.getTimeSlots().size(); i++) {
-					if(r.getTimeSlots().get(i).getTimeSlot() == input.getSlot()) {
-						r.getTimeSlots().remove(i);
-					}
-				}
-			}
-		}
-		
-		repository.save(tt);
-		studentrepository.save(s);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	public ResponseEntity<String> cancleRoom(@CookieValue("sid") String sid, @RequestBody StudentResv input) {
+		return cancelRoom(sid, input);
 	}
 	
 	@RequestMapping(value="/admin", method=RequestMethod.DELETE)
-	public ResponseEntity<TimeTable> cancleRoomByAdmin(@RequestParam("sid") String sid, @RequestBody StudentResv input) {
+	public ResponseEntity<String> cancleRoomByAdmin(@RequestParam("sid") String sid, @RequestBody StudentResv input) {
+		return cancelRoom(sid, input);
+	}
+	
+	private ResponseEntity<String> cancelRoom(String sid, StudentResv input) {
 		//check student status
 		Student s = studentrepository.findById(sid);
 		if(s == null) {
@@ -268,5 +238,4 @@ public class Controller {
 		studentrepository.save(s);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-	
 }
