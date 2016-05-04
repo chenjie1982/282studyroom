@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.content.Student;
 
 public interface StudentRepository extends MongoRepository<Student, String> {
-	public Student findByStudentId(String sid);
-	public Long deleteByStudentId(String sid);
+	public Student findById(String sid);
+	public Long deleteById(String sid);
 	public List<Student> findAll();
 }
