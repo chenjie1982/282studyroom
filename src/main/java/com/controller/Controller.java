@@ -98,6 +98,7 @@ public class Controller {
 			s = new Student(input.getId(), 0, input.getMaxNum(), input.getStudentName(), input.getPassword());
 			if(input.getStudentName().equals("admin")) {
 				s.setRole("0");
+				s.setMaxNum(Integer.MAX_VALUE);
 			} else {
 				s.setRole("1");
 			}
@@ -124,10 +125,8 @@ public class Controller {
         }
         return new ResponseEntity<>(tt, HttpStatus.OK);
 	}
-//	@RequestMapping(value="/book?date={date}&sid={sid}&rid={rid}&slot={slot}")
-//	public ResponseEntity<TimeTable> deleteRoom(@) {
-//		
-//	}
+
+	
 	@RequestMapping(value="/book", method=RequestMethod.POST)
 	public ResponseEntity<TimeTable> resvRoom(@CookieValue("sid") String sid, @RequestBody StudentResv input) {
 		//check student status
