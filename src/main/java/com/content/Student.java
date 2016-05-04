@@ -9,29 +9,31 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Student")
 public class Student {
 	@Id
-	String studentId;
+	String id;
 	int curNum;
 	int maxNum;
 	String studentName;
 	String password;
+	String role;
+
 	List<StudentResv> reservation;
 	public Student() {
 		
 	}
 	public Student(String id, int curNum, int maxNum, String name, String password) {
-		this.studentId = id;
+		this.id = id;
 		this.curNum = curNum;
 		this.maxNum = maxNum;
 		this.studentName = name;
 		this.password = password;
 		this.reservation = new ArrayList<StudentResv>();
 	}
-	public String getStudentId() {
-		return studentId;
+	public String getId() {
+		return id;
 	}
 	
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+	public void setId(String studentId) {
+		this.id = studentId;
 	}
 	public int getCurNum() {
 		return curNum;
@@ -63,6 +65,11 @@ public class Student {
 	public void setReservation(List<StudentResv> reservation) {
 		this.reservation = reservation;
 	}
-
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	
 }
