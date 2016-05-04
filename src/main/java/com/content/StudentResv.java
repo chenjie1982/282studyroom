@@ -22,5 +22,4 @@ public class StudentResv {
 	public void setSlot(int timeslot) {
 		this.slot = timeslot;
 	}
-	
 }

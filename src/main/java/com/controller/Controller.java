@@ -235,6 +235,6 @@ public class Controller {
 		
 		repository.save(tt);
 		studentrepository.save(s);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);		
 	}
 }
